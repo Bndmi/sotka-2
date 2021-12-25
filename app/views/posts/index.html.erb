@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sotka</title>
+</head>
+<body>
+	<header class="row content_between align_center">
+		<div><img class="logo" onclick='window.location.href="hi"' src="imgs/logo.png"></div>
+		<div>
+			<ul class="ul_inline margin_0">
+				<li onclick='window.location.href="posts"'>Публикации</li>
+				<li>Профиль</li>
+				<li onclick='window.location.href="about"'>О проекте</li>
+				<li class="bold_text">Вступить</li>
+			</ul>
+		</div>
+	</header>
+	
+	<section class="p_l_section row content_between wrap p_r_section" style="padding-top: 80px;">
+
+		<div class="new_card p_l_card p_r_card p_t_card m_b_card ">
+			<div class="new_card_h m_b_card">Яичница</div>
+			<div class="row content_between new_card_p dot_styled_bottom m_b_card p_b_card"><div>12.12.2021</div><div>12:00</div></div>
+			<div class="new_card_h3">Ингридиенты</div>
+			<div class="row content_between new_card_p"><div>Яйцо</div><div>2 шт</div></div>
+			<div class="row content_between new_card_p"><div>Яйцо</div><div>2 шт</div></div>
+			<div class="row content_between new_card_p dot_styled_bottom m_b_card p_b_card"><div>Яйцо</div><div>2 шт</div></div>
+			<div class="row content_between new_card_p dot_styled_bottom m_b_card p_b_card"><div class="new_card_h3">Время приготовления:</div><div>2 ч.</div></div>
+			<div class="new_card_h3">Рецепт</div>
+			<div class="dot_styled_bottom m_b_card p_b_card new_card_p">1. Налейте растительное масло в чистую сковороду и поставьте на огонь.<br> 2. Разбейте яйца и вылейте их на сковороду, стараясь не повредить желток.<br> 3. Посолите по вкусу и жарьте 2-3 минуты.<br> 4. Лопаткой аккуратно переложите яичницу на тарелку и подавайте на стол.</div>
+			<div class="row content_between new_card_p dot_styled_bottom p_b_card"><div class="new_card_h3">Итого на порцию:</div><div>24 р.</div></div>
+		</div>
+
+		<% $counter = 0 %>
+		<% @posts.each do |post| %>
+		<%$counter = $counter + 1 %>
+		<div id = "y<%= $counter %>" onclick="newCardOpen(<%= $counter %>)" class="new_card p_l_card p_r_card p_t_card m_b_card">
+			<div class="new_card_h m_b_card"><%= post.title %></div>
+			<div class="row content_between new_card_p dot_styled_bottom m_b_card p_b_card"><div>12.12.2021</div><div>12:00</div></div>
+			<div class="new_card_h3">Ингридиенты</div>
+			<div class="row content_between new_card_p"><div><%= post.tags %></div><div><%= $counter %> шт</div></div>
+			<div class="row content_between new_card_p dot_styled_bottom m_b_card p_b_card"><div class="new_card_h3">Время приготовления:</div><div>2 ч.</div></div>
+			<div class="new_card_h3">Рецепт</div>
+			<div class="dot_styled_bottom m_b_card p_b_card new_card_p">
+				<%= post.body %>
+			</div>
+			<div class="row content_between new_card_p dot_styled_bottom p_b_card"><div class="new_card_h3">Итого на порцию:</div><div>24 р.</div></div>
+		</div>
+       <% end %>
+		
+	</section>
+
+	
+	<footer class="m_t_section">
+		<section class="p_l_section">
+			<a class='btn_input btn_yellow' onclick='window.location.href="posts/new"'>Создать пост</a>
+		</section>
+		<div class="f1 row content_end">
+			<ul class="ul_inline margin_0">
+				<li onclick='window.location.href="posts"'>Публикации</li>
+				<li>Профиль</li>
+				<li onclick='window.location.href="about"'>О проекте</li>
+				<li class="bold_text">Вступить</li>
+			</ul>
+		</div>
+		<div class="f1 f2 b_top">
+			<ul class="margin_0 ul_inline ">
+				<li class="margin_0">Концепция</li>
+				<li>Исследования</li>
+				<li>Целевая аудитория</li>
+				<li>Функционал</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function newCardOpen(arg){
+		let elem = document.getElementById('y'+arg);
+		elem.style.minHeight = '360px';
+		elem.style.maxHeight = 'unset';
+		elem.setAttribute("onclick", "newCardClose("+arg+");");
+	}
+	function newCardClose(arg) {
+		let elem = document.getElementById('y'+arg);
+		elem.style.maxHeight = '243px';
+		elem.style.minHeight = 'unset';
+		elem.setAttribute("onclick", "newCardOpen("+arg+");");
+	}
+	function colorDef(arg) {
+		let elem = document.getElementById('item'+arg);
+		let elem2 = document.getElementById('itemCheck'+arg);
+		elem.style.background = '#FBFF42';
+		elem2.setAttribute("onclick", "uncolorDef("+arg+");");
+	}
+	function uncolorDef(arg) {
+		let elem = document.getElementById('item'+arg);
+		let elem2 = document.getElementById('itemCheck'+arg);
+		elem.style.background = '#C4C4C4';
+		elem2.setAttribute("onclick", "colorDef("+arg+");");
+	}
+	function moreOn(arg){
+		let elem = document.getElementById('area'+arg);
+		let elem2 = document.getElementById('hidden'+arg);
+		let elem3 = document.getElementById('sta'+arg);
+		elem3.style.display = 'none';
+		elem2.style.display = 'unset';
+		elem.setAttribute("onclick", "moreOff("+arg+");");
+	}
+	function moreOff(arg) {
+		let elem = document.getElementById('area'+arg);
+		let elem2 = document.getElementById('hidden'+arg);
+		let elem3 = document.getElementById('sta'+arg);
+		elem3.style.display = 'unset';
+		elem2.style.display = 'none';
+		elem.setAttribute("onclick", "moreOn("+arg+");");
+	}
+	function deleteEl(arg) {
+		let elem = document.getElementById('item'+arg);
+		elem.style.display = 'none';
+	}
+	
+</script>
+</html>
